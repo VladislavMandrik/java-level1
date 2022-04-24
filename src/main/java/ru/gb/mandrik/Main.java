@@ -58,8 +58,8 @@ public class Main {
     // task 6
     public static void findMinMax() {
         int[] a = {15, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 25};
-        int max = 0;
-        int min = 100000000;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < a.length; i++) {
             if (a[i] > max) {
                 max = a[i];
