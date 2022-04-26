@@ -14,9 +14,9 @@ public class MineSweeper {
     private static final String ANSI_CYAN = "\u001B[36m";
     private static final String ANSI_WHITE = "\u001B[37m";
 
-    public static final int WIDTH = 15;
-    public static final int HEIGHT = 15;
-    public static final int MINE_COUNT = 20;
+    public static int WIDTH = 1;
+    public static int HEIGHT = 1;
+    public static int MINE_COUNT = 1;
 
     public static final int MINE = 1000;
     public static final int EMPTY = 0;
@@ -57,6 +57,7 @@ public class MineSweeper {
         }
         return openCell + MINE_COUNT == HEIGHT * WIDTH;
     }
+
     public static boolean move(int[][] board, int[][] moves) {
         Scanner scanner = new Scanner(System.in);
         printBoard(board, moves);
@@ -75,10 +76,38 @@ public class MineSweeper {
             moves[line][row] = CELL_OPEN;
             return true;
         }
+        finalBoard(board);
         return false;
     }
 
     public static int[][] generateBoard() {
+        Scanner scanner = new Scanner(System.in);
+        boolean isWrongInput;
+        do {
+            isWrongInput = false;
+            System.out.print("Введите уровень сложности:\n1 - легкий\n2 - средний\n3 - сложный ");
+            switch (scanner.nextInt()) {
+                case 1:
+                    HEIGHT = 10;
+                    WIDTH = 10;
+                    MINE_COUNT = 10;
+                    break;
+                case 2:
+                    HEIGHT = 15;
+                    WIDTH = 15;
+                    MINE_COUNT = 40;
+                    break;
+                case 3:
+                    HEIGHT = 20;
+                    WIDTH = 20;
+                    MINE_COUNT = 80;
+                    break;
+                default:
+                    System.out.println("Неправильно введен уровень сложности!");
+                    isWrongInput = true;
+                    break;
+            }
+        } while (isWrongInput);
         int[][] board = new int[HEIGHT][WIDTH];
         Random random = new Random();
         int mines = MINE_COUNT;
@@ -166,6 +195,30 @@ public class MineSweeper {
                 return ANSI_CYAN;
             default:
                 return ANSI_YELLOW;
+        }
+    }
+
+    public static void finalBoard(int[][] board) {
+        System.out.print("   ");
+        for (char i = 'A'; i < 'A' + WIDTH; i++) {
+            System.out.print(" " + i);
+        }
+        System.out.println();
+        for (int i = 0; i < HEIGHT; i++) {
+            System.out.printf("%3d", i);
+            for (int j = 0; j < WIDTH; j++) {
+                String code = getColorCode(board[i][j]);
+                System.out.print(code);
+                if (board[i][j] == EMPTY) {
+                    System.out.print(" .");
+                } else if (board[i][j] == MINE) {
+                    System.out.print(" *");
+                } else {
+                    System.out.printf("%2d", board[i][j]);
+                }
+                System.out.print(ANSI_RESET);
+            }
+            System.out.println();
         }
     }
 }
