@@ -12,33 +12,7 @@ public class Cat {
 
     public void eat(Plate p) {
         p.decreaseFood(appetite);
-        if (!p.isEnd()) {
-            satiety = true;
-        }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAppetite() {
-        return appetite;
-    }
-
-    public void setAppetite(int appetite) {
-        this.appetite = appetite;
-    }
-
-    public boolean isSatiety() {
-        return satiety;
-    }
-
-    public void setSatiety(boolean satiety) {
-        this.satiety = satiety;
+        satiety = p.isSuccess();
     }
 
     @Override

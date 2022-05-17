@@ -2,7 +2,7 @@ package ru.gb.mandrik;
 
 public class Plate {
     private int food;
-    private boolean isEnd;
+    private boolean isSuccess;
 
     public Plate(int food) {
         this.food = food;
@@ -11,9 +11,9 @@ public class Plate {
     public void decreaseFood(int n) {
         if (food >= n) {
             food -= n;
+            isSuccess = true;
         } else {
-            System.out.println("Мало еды!");
-            isEnd = true;
+            System.out.println("РњР°Р»Рѕ РµРґС‹!");
         }
     }
 
@@ -21,25 +21,15 @@ public class Plate {
         this.food += food;
     }
 
-    public int getFood() {
-        return food;
+    public boolean isSuccess() {
+        return isSuccess;
     }
 
-    public void setFood(int food) {
-        this.food = food;
-    }
-
-    public boolean isEnd() {
-        return isEnd;
-    }
-
-    public void setEnd(boolean end) {
-        isEnd = end;
-    }
-
-    public void info() {
-        System.out.println("plate: " + food);
-
+    @Override
+    public String toString() {
+        return "Plate{" +
+                "food=" + food +
+                '}';
     }
 }
 
